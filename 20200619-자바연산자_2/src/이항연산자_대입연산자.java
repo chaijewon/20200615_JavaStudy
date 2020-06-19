@@ -65,12 +65,52 @@
  *                 
  *                 
  *                 '0'==0
+ *                 
+ *                 
+ *                 한개증가  :  증가연산자 
+ *                   ++
+ *                 원하는 갯수만큼 증가 : 복합 대입연산자
+ *                   +=5
+ *                   
+ *                  한개증가 
+ *                  a++
+ *                  ++a
+ *                  a+=1
+ *                  a=a+1
  */
 public class 이항연산자_대입연산자 {
-
+    // 증가 ==> 1씩 증가 (++)
+	// a++;a++;a++ ==> a+=7
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+        int a=10;
+        // 복합대입 연산자 
+        a+=5;// a=a+5 ==> 15 ==> a값에 5을 더한다 
+        System.out.println("a="+a);
+        
+        int b=10;
+        b-=5; // b=b-5 ==> 5 ==> b값에 5를 빼라
+        System.out.println("b="+b);
+        
+        int c=10;
+        //c=c*5; 
+        c*=5;
+        // c = c*5
+        //     = 10
+        System.out.println("c="+c);
+        
+        int d=10;
+        //d=d/3;
+        d/=3;
+        System.out.println("d="+d);
+       
+		/*
+		 * for(int i=1;i<=100;i+=2) { //if(i%2!=0) System.out.println("i="+i); }
+		 */
 	}
 
 }
+
+
+
+
