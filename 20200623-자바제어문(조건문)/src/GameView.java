@@ -16,6 +16,7 @@ public class GameView extends JPanel{
    // 이미지 출력 
    public void paint(Graphics g)
    {
+	   int k=0;
 	   g.drawImage(back, 0,0,getWidth(),getHeight(),this);
 	   g.drawImage(air, x,y,80,50,this);
    }

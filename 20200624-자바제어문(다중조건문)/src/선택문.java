@@ -39,11 +39,42 @@
  *             처리문장 3 
  *       }
  */
+import java.util.*;
 public class 선택문 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+        int select=0;
+        Scanner scan=new Scanner(System.in);
+        System.out.print("정수(1~5):");
+        select=scan.nextInt();
+        // if(select==1 || select==2)
+        // 종료 시점 ==> break;
+        switch(select)
+        {
+        case 1:
+        	//System.out.println("1번~2번을 입력하였습니다");
+        	//break;// switch문 종료한다 
+        case 2:
+        	System.out.println("1번~2번을 입력하였습니다");
+        	break;
+        case 3:
+        	System.out.println("3번을 입력하였습니다");
+        	break;
+        case 4:
+        	System.out.println("4번을 입력하였습니다");
+        	break;
+        case 5:
+        	System.out.println("5번을 입력하였습니다");
+        	break;
+        default:
+        	System.out.println("1~5번까지만 사용하세요");
+        }
 	}
 
 }
+
+
+
+
+
