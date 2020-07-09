@@ -8,7 +8,7 @@ import org.jsoup.select.Elements;
 
 import java.awt.event.*;
 import java.net.*;
-public class MovieMain extends JFrame{
+public class MovieMain extends JFrame implements ActionListener{
     JButton b1,b2,b3,b4,b5;// 멤버변수의 초기화
     //JLabel la=new JLabel();// 그림출력 
     static MovieVO[] movies=new MovieVO[20];
@@ -26,19 +26,22 @@ public class MovieMain extends JFrame{
 		setLayout(null);
 		p.setBounds(10, 15, 1280, 35);
 		pan.setBounds(10, 60, 1280, 900);
-		try
-		{
-			URL url=new URL("https://t1.daumcdn.net/movie/3651b17dc201e5b4ea6409b364f1e950a14b96a3");
-			//la.setIcon(new ImageIcon(getImage(new ImageIcon(url),200,350)));
-		}catch(Exception ex){}
+		
 		add(pan);
 		setSize(1300, 1000);
 		try
 	    {
 	    	movieData(1);
 	    	imagePrint();
-	    }catch(Exception ex) {}
+	    }catch(Exception ex) {ex.printStackTrace();}
+		
 		setVisible(true);
+		
+		b1.addActionListener(this);
+		b2.addActionListener(this);
+		b3.addActionListener(this);
+		b4.addActionListener(this);
+		b5.addActionListener(this);
 	    
 	}
     Image getImage(ImageIcon ii,int w,int h)
@@ -50,11 +53,16 @@ public class MovieMain extends JFrame{
     void imagePrint() throws Exception
     {
        pan.setLayout(new GridLayout(4,5,8,8));	
+       pan.removeAll();
        for(MovieVO vo:movies)
        {
-    	   URL url=new URL(vo.poster);
-    	   pan.add(new JLabel(new ImageIcon(getImage(new ImageIcon(url),250,280))));
+    	   if(vo.poster!=null)
+    	   {
+    	     URL url=new URL(vo.poster);
+    	     pan.add(new JLabel(new ImageIcon(getImage(new ImageIcon(url),250,280))));
+    	   }
        }
+       pan.validate();
     }
     static void movieData(int no) throws Exception
     {
@@ -99,5 +107,58 @@ public class MovieMain extends JFrame{
 		UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
         new MovieMain();
 	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==b1)
+		{
+			try
+		    {
+		    	movieData(1);
+		    	imagePrint();
+		    }catch(Exception ex) {}
+		}
+		else if(e.getSource()==b2)
+		{
+			try
+		    {
+		    	movieData(2);
+		    	imagePrint();
+		    }catch(Exception ex) {}
+		}
+		else if(e.getSource()==b3)
+		{
+			try
+		    {
+		    	movieData(3);
+		    	imagePrint();
+		    }catch(Exception ex) {}
+		}
+		else if(e.getSource()==b4)
+		{
+			try
+		    {
+		    	movieData(4);
+		    	imagePrint();
+		    }catch(Exception ex) {}
+		}
+		else if(e.getSource()==b5)
+		{
+			try
+		    {
+		    	movieData(5);
+		    	imagePrint();
+		    }catch(Exception ex) {}
+		}
+	}
 
 }
+
+
+
+
+
+
+
+
+
