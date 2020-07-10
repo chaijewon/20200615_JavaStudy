@@ -1,5 +1,46 @@
 import java.io.*;
 import java.util.Scanner;
+/*
+ *   변수 설정 : 초기값
+ *    = 선언과 동시에 값 주입
+ *    = 생성자
+ *    = 초기화블록 
+ *       = 인스턴스 초기화
+ *           class A
+ *           {
+ *              int a;
+ *              
+ *              {
+ *                 a=10;
+ *              }
+ *           }
+ *       = static 초기화
+ *          class A
+ *          {
+ *             static int a;
+ *             static
+ *             {
+ *                a=10;
+ *             }
+ *          }
+ *          
+ *          
+ *          ==> 명시적 초기화 ==> 초기화 블록 ==> 생성자 
+ *                            =================== 같이 사용하는 빈도가 거의 없다
+ *          
+ *          class A
+ *          {
+ *              int a=10;
+ *              
+ *              {
+ *                 a=100;
+ *              }
+ *              
+ *              A(){
+ *                 a=1000;
+ *              }
+ *          }
+ */
 public class MovieManager {
   static MovieVO[] movies=new MovieVO[1938];
   // 모든 클래스에서 공유를 할 경우 
@@ -55,7 +96,32 @@ public class MovieManager {
 	   */
 	  for(MovieVO vo:movies)
 	  {
+		  if(i>10) break;
 		  if(i<10 && j>=pagecnt)
+		  {
+			  m[i]=vo;
+			  i++;
+		  }
+		  j++;
+	  }
+	  return m;
+  }
+  
+  static MovieVO[] movieFindData(int page)
+  {
+	  MovieVO[] m=new MovieVO[50];
+	  int i=0;// 10개씩 나눠주는 변수 
+	  int j=0;// for 횟수 
+	  int rowSize=50; // 각 페이지당 몇개 
+	  int pagecnt=(page*rowSize)-rowSize;// 시작 위치 
+	  /*
+	   *    1 page  => 0  ~  9
+	   *    2 page  => 10 ~ 19
+	   */
+	  for(MovieVO vo:movies)
+	  {
+		  if(i>50) break;
+		  if(i<50 && j>=pagecnt)
 		  {
 			  m[i]=vo;
 			  i++;
@@ -76,6 +142,7 @@ public class MovieManager {
 		System.out.println("==================");
 	}
   }
+  
 	/*
 	 * public static void main(String[] args) {
 	 * //System.out.println(data.toString()); for(MovieVO vo:movies) {
