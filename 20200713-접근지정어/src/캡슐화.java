@@ -73,9 +73,35 @@
  *                        1) 데이터 보호하는 목적 
  *                           데이터를 은닉화 => 필요할때만 메소드를 이용해서 사용 
  *                        2) 경계구분 
+ *                        
+ *          class A
+ *          {
+ *             public void add(int a,int b){}
+ *             public void add(double d,double d1){}
+ *             public void add(String s,String s1){}
+ *          }
+ *          
+ *          A a=new A();  ==> 
+ *          
+ *          class A
+ *          {
+ *              public void add(int a,int b){}
+ *          }
+ *          class B extends A
+ *          {
+ *              public void add(int a,int b){}
+ *          }
+ *          
+ *          A a=new A()
+ *          a.add()  ==> A클래스가 가지고 있는 add()메소드 호출 
+ *        
+ *          a=new B();
+ *          a.add() ==> B클래스가 가지고 있는 add()메소드 호출
  */
 public class 캡슐화 {
-
+    public 캡슐화() {
+    	
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 

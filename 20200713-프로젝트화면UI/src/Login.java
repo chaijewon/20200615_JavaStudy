@@ -1,5 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+/*
+ *    class JPanel extends Object
+ *    class Login extends JPanel
+ */
 public class Login extends JPanel{
    // 스킨 
    private Image back;
@@ -11,6 +15,7 @@ public class Login extends JPanel{
    // MainForm 
    public Login() 
    {
+	   
 	   // 이미지 정보 읽기
 	   back=Toolkit.getDefaultToolkit().getImage("c:\\javaDev\\back.jpg");
 	   
