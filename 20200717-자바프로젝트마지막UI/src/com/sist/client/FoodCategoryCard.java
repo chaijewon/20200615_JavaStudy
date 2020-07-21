@@ -22,7 +22,7 @@ public class FoodCategoryCard extends JPanel{
 	   g.setColor(Color.white);
 	   g.setFont(new Font("±Ã¼­Ã¼",Font.BOLD,15));
 	   g.drawString(title, 10, 100);
-	   g.drawString(subject, 50, 150);
+	   g.drawString(subject, 20, 150);
    }
 }
 
