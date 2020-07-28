@@ -7,7 +7,8 @@ public class CardPrint extends JFrame{
     public CardPrint()
     {
     	//setLayout(null);
-    	//FoodHouseVO[] food=MainClass3.categoryFoodData();
+    	MovieManager m=new MovieManager();
+    	ArrayList<MovieVO> movies=m.movieListData(1);
     	JPanel p=new JPanel();
     	p.setLayout(new GridLayout(10,1));
     	JScrollPane pp=new JScrollPane();
@@ -17,10 +18,13 @@ public class CardPrint extends JFrame{
     	pp.setViewportView(p);
     	add("Center",pp);
     	
-		/*
-		 * for(FoodHouseVO vo:food) { MovieListCard fc=new MovieListCard(vo); p.add(fc);
-		 * }
-		 */
+		
+		 for(MovieVO vo:movies) 
+		 { 
+			 MovieListCard fc=new MovieListCard(vo); 
+			 p.add(fc);
+		 }
+		 
     	
     	setSize(1300, 500);
     	setVisible(true);

@@ -112,6 +112,11 @@ public class MovieManager {
 		return (int)(Math.ceil(list.size()/10.0));
 		// ceil는 올림 메소드 
 	}
+	// 상세보기 
+	public MovieVO movieDetailData(int mno)
+	{
+		return list.get(mno-1);
+	}
 	public static void main(String[] args) {
 		Scanner scan=new Scanner(System.in);
 		System.out.print("페이지:");

@@ -6,8 +6,11 @@ import java.util.*;//ArrayList
 public class MovieForm extends JPanel{
    JButton b1,b2;
    JPanel p=new JPanel();
-   public MovieForm()
+   MovieCard[] mc=new MovieCard[10];
+   ClientMainFrame c;
+   public MovieForm(ClientMainFrame c)
    {
+	   this.c=c;
 	   setLayout(new BorderLayout());
 	   b1=new JButton("¢¸");
 	   b2=new JButton("¢º");
@@ -22,10 +25,13 @@ public class MovieForm extends JPanel{
    {
 	   MovieManager m=new MovieManager();
 	   ArrayList<MovieVO> list=m.movieListData(page);
+	   int i=0;
 	   for(MovieVO vo:list)
 	   {
-		   MovieCard fc=new MovieCard(vo.getTitle(),vo.getPoster());
-		   p.add(fc);
+		   mc[i]=new MovieCard(vo.getTitle(),vo.getPoster());
+		   p.add(mc[i]);
+		   mc[i].addMouseListener(c);
+		   i++;
 	   }
    }
 }

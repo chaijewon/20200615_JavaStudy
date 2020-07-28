@@ -25,16 +25,19 @@ import java.awt.event.*;// interface
  *      }
  *      
  */
-public class ClientMainFrame extends JFrame implements ActionListener{
+public class ClientMainFrame extends JFrame implements ActionListener,MouseListener{
     // 윈도우 크기 결정  => 생성자에서 사용  ==> 291 page
 	JLabel title=new JLabel("영화 예매  & 추천 프로그램",JLabel.CENTER);
 	MenuForm mf=new MenuForm();
 	ChatForm cf=new ChatForm();
-	ControllPanel cp=new ControllPanel();
+	DetailForm df=new DetailForm();
+	ControllPanel cp;
 	int curpage=1;
 	int totalpage=16;
 	public ClientMainFrame()
 	{
+		cp=new ControllPanel(this);
+		// 새로운 창 => 현재 실행중인 윈도우창을 전송 
 		/*
 		 *   클래스에서 생성자 사용 => 선언이 아니라 => 구현할때 
 		 *   예)
@@ -68,6 +71,12 @@ public class ClientMainFrame extends JFrame implements ActionListener{
 		cp.ff.b1.addActionListener(this);// 이전
 		cp.ff.b2.addActionListener(this);// 다음
 		
+		df.b2.addActionListener(this);// 목록
+		
+		/*
+		 * for(int i=0;i<10;i++) { cp.ff.mc[i].addMouseListener(this); }
+		 */
+		
 	}
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
@@ -86,21 +95,25 @@ public class ClientMainFrame extends JFrame implements ActionListener{
 		// TODO Auto-generated method stub
 		if(e.getSource()==mf.b1)
 		{
-			cp.card.show(cp, "DF");
+			cp.card.show(cp, "FF");
 		}
 		else if(e.getSource()==mf.b2)
 		{
 			cp.card.show(cp, "LF");
+		}
+		else if(e.getSource()==df.b2)
+		{
+			cp.card.show(cp, "FF");
 		}
 		else if(e.getSource()==cp.ff.b1)// 이전버튼
 		{
 			if(curpage>1)
 			{
 				curpage--;
-				cp.ff.p.removeAll();
+				cp.ff.p.removeAll();// JPanel의 모든 기능을 삭제
 				cp.ff.moviePrint(curpage);
 				cp.ff.repaint();
-				cp.ff.p.validate();
+				cp.ff.p.validate();//JPanel의 원래 기능을 재배치
 			}
 			
 		}
@@ -115,6 +128,46 @@ public class ClientMainFrame extends JFrame implements ActionListener{
 				cp.ff.p.validate();
 			}
 		}
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		for(int i=0;i<10;i++)
+		{
+			if(e.getSource()==cp.ff.mc[i])
+			{
+				if(e.getClickCount()==2)
+				{
+					int a=(i+1)+((curpage*10)-10);
+					//JOptionPane.showMessageDialog(this, "mno="+a);
+					//System.out.println(a);
+					df.detailPrint(a);
+					//cp.card.show(cp,"DF");
+					df.setVisible(true);
+					break;
+				}
+			}
+		}
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
