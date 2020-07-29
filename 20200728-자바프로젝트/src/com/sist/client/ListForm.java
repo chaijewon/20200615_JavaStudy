@@ -1,15 +1,18 @@
 package com.sist.client;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.*;
 import com.sist.data.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.net.*;
-public class ListForm extends JPanel{
+public class ListForm extends JPanel implements MouseListener{
    JButton b1,b2,b3,b4,b5,b6;
    JTextField tf;
    JTable table;
    DefaultTableModel model;
+   MovieDetailForm mdf=new MovieDetailForm();
    /*
     *    기능 => 메소드 ==> 리턴형 , 매개변수 
     */
@@ -64,8 +67,13 @@ public class ListForm extends JPanel{
 	   
 	   js.setBounds(10, 70, 700, 550);
 	   add(js);
-	   movieAllData(1);
 	   
+	   mdf.setBounds(715,70 , 800, 650);
+	   add(mdf);
+	   movieAllData(1);
+	   mdf.detailPrint(1);
+	   
+	   table.addMouseListener(this);
    }
    public void movieAllData(int cno)
    {
@@ -140,6 +148,39 @@ public class ListForm extends JPanel{
 		  }catch(Exception ex){ex.printStackTrace();}
 	   }
    }
+@Override
+public void mouseClicked(MouseEvent e) {
+	// TODO Auto-generated method stub
+	if(e.getSource()==table)
+	{
+		if(e.getClickCount()==2)
+		{
+			int row=table.getSelectedRow();
+			String mno=model.getValueAt(row, 0).toString();
+			mdf.detailPrint(Integer.parseInt(mno));
+		}
+	}
+}
+@Override
+public void mousePressed(MouseEvent e) {
+	// TODO Auto-generated method stub
+	
+}
+@Override
+public void mouseReleased(MouseEvent e) {
+	// TODO Auto-generated method stub
+	
+}
+@Override
+public void mouseEntered(MouseEvent e) {
+	// TODO Auto-generated method stub
+	
+}
+@Override
+public void mouseExited(MouseEvent e) {
+	// TODO Auto-generated method stub
+	
+}
 }
 
 

@@ -45,11 +45,31 @@ public class NewsManager {
     public ArrayList<NewsVO> newsListData(int page)
     {
     	ArrayList<NewsVO> news=new ArrayList<NewsVO>();
+    	int i=0;// i => 5개씩 나눠주는 변수 
+    	int j=0;// j => for이 수행되는 횟수 
+    	int pagecnt=(page*5)-5; // 출력할 시작위치 
+    	// if(i<5 && j<=pagecnt)
+    	for(NewsVO vo:list)
+    	{
+    		if(i<5 && j>=pagecnt)
+    		{
+    			news.add(vo);
+    			i++;
+    		}
+    		j++;
+    	}
     	return news;
     }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+        NewsManager m=new NewsManager();
+        ArrayList<NewsVO> list=m.newsListData(1);
+        int i=1;
+        for(NewsVO vo:list)
+        {
+        	System.out.println(i+"."+vo.getTitle());
+        	i++;
+        }
 	}
 
 }
