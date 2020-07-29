@@ -117,6 +117,33 @@ public class MovieManager {
 	{
 		return list.get(mno-1);
 	}
+	// 영화 전체 읽기
+	public ArrayList<MovieVO> movieAllData(int cno)
+	{
+		ArrayList<MovieVO> movies=new ArrayList<MovieVO>();
+		for(MovieVO vo:list)
+		{
+			if(vo.getCno()==cno)
+			{
+				movies.add(vo);
+			}
+		}
+		return movies;
+	}
+	// 검색 
+	public ArrayList<MovieVO> movieFindData(String ss)
+	{
+		ArrayList<MovieVO> movies=new ArrayList<MovieVO>();// 가변배열 
+		// list
+		for(MovieVO vo:list)
+		{
+			if(vo.getTitle().contains(ss))
+			{
+				movies.add(vo);
+			}
+		}
+		return movies;
+	}
 	public static void main(String[] args) {
 		Scanner scan=new Scanner(System.in);
 		System.out.print("페이지:");

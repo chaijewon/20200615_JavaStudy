@@ -73,6 +73,14 @@ public class ClientMainFrame extends JFrame implements ActionListener,MouseListe
 		
 		df.b2.addActionListener(this);// 목록
 		
+		cp.lf.b1.addActionListener(this);
+		cp.lf.b2.addActionListener(this);
+		cp.lf.b3.addActionListener(this);
+		cp.lf.b4.addActionListener(this);
+		cp.lf.b5.addActionListener(this);
+		cp.lf.b6.addActionListener(this);
+		cp.lf.tf.addActionListener(this);
+		
 		/*
 		 * for(int i=0;i<10;i++) { cp.ff.mc[i].addMouseListener(this); }
 		 */
@@ -128,6 +136,39 @@ public class ClientMainFrame extends JFrame implements ActionListener,MouseListe
 				cp.ff.p.validate();
 			}
 		}
+		else if(e.getSource()==cp.lf.b1)
+		{
+			cp.lf.movieAllData(1);
+		}
+		else if(e.getSource()==cp.lf.b2)
+		{
+			cp.lf.movieAllData(2);
+		}
+		else if(e.getSource()==cp.lf.b3)
+		{
+			cp.lf.movieAllData(3);
+		}
+		else if(e.getSource()==cp.lf.b4)
+		{
+			cp.lf.movieAllData(4);
+		}
+		else if(e.getSource()==cp.lf.b5)
+		{
+			cp.lf.movieAllData(5);
+		}
+		else if(e.getSource()==cp.lf.b6 || e.getSource()==cp.lf.tf)
+		{
+			// 1. 입력된 값 읽기
+			String ss=cp.lf.tf.getText();
+			if(ss.length()<1)
+			{
+				JOptionPane.showMessageDialog(this, "검색어를 입력하세요");
+				cp.lf.tf.requestFocus();
+				return; // 메소드 종료 
+			}
+			cp.lf.movieFindData(ss);
+		}
+		
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {

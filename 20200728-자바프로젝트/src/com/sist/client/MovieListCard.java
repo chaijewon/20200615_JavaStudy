@@ -22,9 +22,9 @@ public class MovieListCard extends JPanel{
     	 la1=new JLabel(vo.getTitle());
     	 la2=new JLabel(String.valueOf(vo.getScore()));
     	 la2.setForeground(Color.orange);
-    	 la3=new JLabel(vo.getAddrss());
+    	 la3=new JLabel(vo.getTitle());
     	 ta=new JTextPane();
-    	 ta.setText(vo.getReview());
+    	 ta.setText(vo.getStory());
     	 
     	 setLayout(null);
     	 posterLa.setBounds(10, 15, 200, 200);

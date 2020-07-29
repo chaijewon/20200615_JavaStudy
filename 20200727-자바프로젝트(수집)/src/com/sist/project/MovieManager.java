@@ -134,6 +134,21 @@ public class MovieManager {
     		    	System.out.println(content.get(j).text());
     		    	System.out.println(author.get(j).text());
     		    	System.out.println(link.get(j).attr("href"));
+    		    	FileWriter fw=new FileWriter("c:\\javaDev\\daum_news.txt",true);
+    		    	String img=poster.get(j).attr("style");
+    		    	/*
+    		    	 *   background-image:url(https://img1.daumcdn.net/thumb/S320x200/?fname=https:
+    		    	 *       //t1.daumcdn.net/news/202007/27/ilgansports/20200727214634432npjw.jpg);
+    		    	 */
+    		    	img=img.substring(img.indexOf("(")+1,img.lastIndexOf(")"));
+    		    	String data=title.get(j).text()+"|"
+    		    			   +content.get(j).text().replace("|", " ")+"|"
+    		    			   +author.get(j).text()+"|"
+    		    			   +link.get(j).attr("href")+"|"
+    		    			   +"https:"+img+"\r\n";
+    		    	fw.write(data);
+    		    	fw.close();
+    		    	
     		    }
     		}
     	}catch(Exception ex) {System.out.println(ex.getMessage());}
