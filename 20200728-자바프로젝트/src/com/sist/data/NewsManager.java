@@ -44,7 +44,8 @@ public class NewsManager {
     }
     public ArrayList<NewsVO> newsListData(int page)
     {
-    	
+    	ArrayList<NewsVO> news=new ArrayList<NewsVO>();
+    	return news;
     }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
