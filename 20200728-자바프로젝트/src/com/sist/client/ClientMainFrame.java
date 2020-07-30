@@ -67,6 +67,7 @@ public class ClientMainFrame extends JFrame implements ActionListener,MouseListe
 		
 		mf.b1.addActionListener(this);
 		mf.b2.addActionListener(this);
+		mf.b5.addActionListener(this);
 		
 		cp.ff.b1.addActionListener(this);// 이전
 		cp.ff.b2.addActionListener(this);// 다음
@@ -80,6 +81,8 @@ public class ClientMainFrame extends JFrame implements ActionListener,MouseListe
 		cp.lf.b5.addActionListener(this);
 		cp.lf.b6.addActionListener(this);
 		cp.lf.tf.addActionListener(this);
+		
+		
 		
 		/*
 		 * for(int i=0;i<10;i++) { cp.ff.mc[i].addMouseListener(this); }
@@ -108,6 +111,10 @@ public class ClientMainFrame extends JFrame implements ActionListener,MouseListe
 		else if(e.getSource()==mf.b2)
 		{
 			cp.card.show(cp, "LF");
+		}
+		else if(e.getSource()==mf.b5)
+		{
+			cp.card.show(cp, "NF");
 		}
 		else if(e.getSource()==df.b2)
 		{

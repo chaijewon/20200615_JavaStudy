@@ -7,6 +7,7 @@ public class ControllPanel extends JPanel{
    //DetailForm df=new DetailForm();
    MovieForm ff;
    ClientMainFrame c;
+   NewsForm nf=new NewsForm();
    public ControllPanel(ClientMainFrame c)
    {
 	   this.c=c;
@@ -14,7 +15,7 @@ public class ControllPanel extends JPanel{
 	   setLayout(card);
 	   add("FF",ff);
 	   //add("DF",df);
-
+       add("NF",nf);
 	   add("LF",lf);
 	   
    }
