@@ -107,7 +107,7 @@ public class Server implements Runnable{
 						break;
 						case Function.CHAT:
 						{
-							messageAll(Function.CHAT+"|["+name+"]"+st.nextToken());
+							messageAll(Function.CHAT+"|["+name+"]"+st.nextToken()+"|"+st.nextToken());
 						}
 						break;
 						case Function.EXIT:

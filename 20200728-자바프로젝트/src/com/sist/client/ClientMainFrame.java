@@ -2,6 +2,10 @@ package com.sist.client;
 // 윈도우 => JFrame
 // 윈도우와 관련된 클래스를 읽어온다 
 import javax.swing.*;
+import javax.swing.text.Document;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
 
 import com.sist.common.Function;
 
@@ -248,13 +252,14 @@ MouseListener,Runnable{
 		}
 		else if(e.getSource()==cf.tf)// 채팅 
 		{
+			String color=cf.box.getSelectedItem().toString();
 			String msg=cf.tf.getText();
 			if(msg.length()<1)
 				return;
 			// 데이터를 서버로 전송 
 			try
 			{
-				out.write((msg+"\n").getBytes());
+				out.write((Function.CHAT+"|"+msg+"|"+color+"\n").getBytes());
 			}catch(Exception ex){}
 			
 			    cf.tf.setText("");
@@ -343,7 +348,8 @@ MouseListener,Runnable{
 				   break;
 				   case Function.CHAT:
 				   {
-					     cf.ta.append(st.nextToken()+"\n");
+					     initStyle();
+					     append(st.nextToken(),st.nextToken());
 				   }
 				   break;
 				   case Function.EXIT:
@@ -370,7 +376,35 @@ MouseListener,Runnable{
 			}
 		}catch(Exception ex) {}
 	}
-
+    public void initStyle()
+    {
+    	Style def=StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
+    	Style red=cf.ta.addStyle("red", def);
+    	StyleConstants.setForeground(red, Color.red);
+    	
+    	Style blue=cf.ta.addStyle("blue", def);
+    	StyleConstants.setForeground(blue, Color.blue);
+    	
+    	Style green=cf.ta.addStyle("green", def);
+    	StyleConstants.setForeground(green, Color.green);
+    	
+    	Style yellow=cf.ta.addStyle("yellow", def);
+    	StyleConstants.setForeground(yellow, Color.yellow);
+    	
+    	Style gray=cf.ta.addStyle("gray", def);
+    	StyleConstants.setForeground(gray, Color.gray);
+    	
+    	Style cyan=cf.ta.addStyle("cyan", def);
+    	StyleConstants.setForeground(cyan, Color.cyan);
+    }
+    public void append(String msg,String color)
+    {
+    	try
+    	{
+    		Document doc=cf.ta.getDocument();
+    		doc.insertString(doc.getLength(), msg+"\n", cf.ta.getStyle(color));
+    	}catch(Exception ex) {}
+    }
 }
 
 

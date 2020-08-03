@@ -4,7 +4,7 @@ import java.awt.Color;
 import javax.swing.*;
 import javax.swing.table.*;
 public class ChatForm extends JPanel{
-   JTextArea ta;
+   JTextPane ta;
    JTextField tf;
    JComboBox box;
    JTable table;
@@ -14,7 +14,7 @@ public class ChatForm extends JPanel{
    {
 	   //setBackground(Color.yellow);
 	   setLayout(null);
-	   ta=new JTextArea();
+	   ta=new JTextPane();
 	   ta.setEditable(false);
 	   JScrollPane js=new JScrollPane(ta);
 	   js.setBounds(10, 15, 850, 140);
