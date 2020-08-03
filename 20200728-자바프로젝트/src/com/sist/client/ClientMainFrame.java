@@ -2,6 +2,9 @@ package com.sist.client;
 // 윈도우 => JFrame
 // 윈도우와 관련된 클래스를 읽어온다 
 import javax.swing.*;
+
+import com.sist.common.Function;
+
 import java.awt.*; // Color,Layout
 import java.awt.event.*;// interface
 /*
@@ -25,15 +28,28 @@ import java.awt.event.*;// interface
  *      }
  *      
  */
-public class ClientMainFrame extends JFrame implements ActionListener,MouseListener{
+import java.io.*;
+import java.net.*;
+import java.util.*;
+/*
+ *    1. 사용자가 서버에 요청 
+ *    2. 서버에서 들어오는 응답을 받아서 출력 (쓰레드) => 자동화 
+ */
+public class ClientMainFrame extends JFrame implements ActionListener,
+MouseListener,Runnable{
     // 윈도우 크기 결정  => 생성자에서 사용  ==> 291 page
 	JLabel title=new JLabel("영화 예매  & 추천 프로그램",JLabel.CENTER);
 	MenuForm mf=new MenuForm();
 	ChatForm cf=new ChatForm();
 	DetailForm df=new DetailForm();
+	Login login=new Login();
 	ControllPanel cp;
 	int curpage=1;
 	int totalpage=16;
+	// 네트워크 관련 프로그램 
+	Socket s; // 연결 기계 
+	OutputStream out; // 서버로 요청값 전송 => 로그인,채팅 문자열 , 종료 ....
+	BufferedReader in; // 서버로부터 값을 받아오는 클래스  ==> 쓰레드 
 	public ClientMainFrame()
 	{
 		cp=new ControllPanel(this);
@@ -62,8 +78,8 @@ public class ClientMainFrame extends JFrame implements ActionListener,MouseListe
 		cp.setBounds(115, 120, 1465, 635);
 		add(cp);
 		setSize(1600, 1000);
-		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);// X버튼 클릭시 종료
+		//setVisible(true);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);// X버튼 클릭시 종료
 		
 		mf.b1.addActionListener(this);
 		mf.b2.addActionListener(this);
@@ -83,6 +99,15 @@ public class ClientMainFrame extends JFrame implements ActionListener,MouseListe
 		cp.lf.tf.addActionListener(this);
 		
 		
+		// 로그인 처리 
+		login.b1.addActionListener(this);
+		login.b2.addActionListener(this);
+		
+		// 종료 
+		mf.b7.addActionListener(this);
+		
+		// 채팅 
+		cf.tf.addActionListener(this);
 		
 		/*
 		 * for(int i=0;i<10;i++) { cp.ff.mc[i].addMouseListener(this); }
@@ -176,6 +201,52 @@ public class ClientMainFrame extends JFrame implements ActionListener,MouseListe
 			cp.lf.movieFindData(ss);
 		}
 		
+		else if(e.getSource()==login.b1)
+		{
+			String id=login.tf1.getText();
+			if(id.length()<1)// ID가 입력하지 않을 경우
+			{
+				JOptionPane.showMessageDialog(this, "아이디를 입력하세요");
+				login.tf1.requestFocus();
+				return;
+			}
+			
+			String name=login.tf2.getText();
+			if(name.length()<1)
+			{
+				JOptionPane.showMessageDialog(this, "대화명을 입력하세요");
+				login.tf2.requestFocus();
+				return;
+			}
+			
+			String sex="";
+			if(login.rb1.isSelected())
+				sex="남자";
+			else
+				sex="여자";
+			
+			// 서버로 입력받은 데이터 전송 
+			try
+			{
+				// 연결  => 서버에 대한 정보를 가지고 있다 
+				s=new Socket("localhost",3355);
+				// 송수신 위치 확인
+				in=new BufferedReader(new InputStreamReader(s.getInputStream()));
+				out=s.getOutputStream();
+				
+				// 로그인 요청 (서버로 전송되는 부분)
+				out.write((Function.LOGIN+"|"+id+"|"+name+"|"+sex+"\n").getBytes());
+			}catch(Exception ex){}
+			    
+			    //서버에서 전송하는 데이터를 읽어서 출력 
+			    new Thread(this).start();
+			    // run()의 위치 확인 ==> 자신의 클래스안에 존재 => (this)
+		}
+		else if(e.getSource()==login.b2)
+		{
+			System.exit(0);
+		}
+		
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -216,6 +287,43 @@ public class ClientMainFrame extends JFrame implements ActionListener,MouseListe
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		// 서버에서 들어오는 데이터를 받아서 처리 
+		try
+		{
+			while(true)
+			{
+				String msg=in.readLine();
+				System.out.println("server=>"+msg);
+				StringTokenizer st=
+						  new StringTokenizer(msg,"|");
+				int protocol=Integer.parseInt(st.nextToken());
+				switch(protocol)
+				{
+				   case Function.MYLOG:
+				   {
+					   setTitle(st.nextToken());
+					   login.setVisible(false);// 로그인창
+					   setVisible(true);// 영화창 (Main) 
+				   }
+				   break;
+				   case Function.LOGIN:
+				   {
+					   // 테이블에 출력 
+					   String[] data= {
+						  st.nextToken(), // id
+						  st.nextToken(), // name
+						  st.nextToken() // sex
+					   };
+					   cf.model.addRow(data);
+				   }
+				   break;
+				}
+			}
+		}catch(Exception ex) {}
 	}
 
 }
