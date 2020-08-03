@@ -121,6 +121,7 @@ public class Server implements Runnable{
 								if(user.id.equals(id))
 								{
 									messageTo(Function.MYEXIT+"|");
+									waitVc.remove(user);
 									in.close();
 									out.close();
 									//통신을 중단한다

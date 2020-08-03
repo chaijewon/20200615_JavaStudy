@@ -246,6 +246,26 @@ MouseListener,Runnable{
 		{
 			System.exit(0);
 		}
+		else if(e.getSource()==cf.tf)// 채팅 
+		{
+			String msg=cf.tf.getText();
+			if(msg.length()<1)
+				return;
+			// 데이터를 서버로 전송 
+			try
+			{
+				out.write((msg+"\n").getBytes());
+			}catch(Exception ex){}
+			
+			    cf.tf.setText("");
+		}
+		else if(e.getSource()==mf.b7)
+		{
+			try
+			{
+				out.write((Function.EXIT+"|\n").getBytes());
+			}catch(Exception ex) {}
+		}
 		
 	}
 	@Override
@@ -319,6 +339,31 @@ MouseListener,Runnable{
 						  st.nextToken() // sex
 					   };
 					   cf.model.addRow(data);
+				   }
+				   break;
+				   case Function.CHAT:
+				   {
+					     cf.ta.append(st.nextToken()+"\n");
+				   }
+				   break;
+				   case Function.EXIT:
+				   {
+					   String id=st.nextToken();
+					   for(int i=0;i<cf.model.getRowCount();i++)
+					   {
+						   String mid=cf.model.getValueAt(i,0).toString();
+						   if(id.equals(mid))
+						   {
+							   cf.model.removeRow(i);
+							   break;
+						   }
+					   }
+				   }
+				   break;
+				   case Function.MYEXIT:
+				   {
+					   dispose();// 윈도우 메모리 해제 
+					   System.exit(0);// 프로그램 종료 
 				   }
 				   break;
 				}
